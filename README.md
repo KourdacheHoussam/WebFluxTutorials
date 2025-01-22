@@ -6,3 +6,6 @@
 
 To launch this app on your laptop, make sur you have a mongoDB database named 'learning' 
 
+## Illustration
+
+![Description de l'image](./docs/reactive-schema.png)
