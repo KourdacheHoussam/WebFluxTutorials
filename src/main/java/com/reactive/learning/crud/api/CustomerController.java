@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.Map;
 
 /**
@@ -27,7 +28,7 @@ public class CustomerController {
         return customerService.createCustomer(customer);
     }
 
-    @GetMapping("/all")
+    @GetMapping(value = "/all", produces = "text/event-stream")
     public Flux<CustomerDto> getCustomers() {
         return customerService.getCustomers();
     }
@@ -46,5 +47,12 @@ public class CustomerController {
     public Mono<Map<String, String>> customerExpenses(){
         return customerService.customersExpenses();
     }
+
+    @GetMapping(value = "/simulate/event-stream", produces = "text/event-stream")
+    public Flux<Long> simulateEventStream() {
+        return Flux.interval(Duration.ofSeconds(1));
+    }
+
+
 
 }

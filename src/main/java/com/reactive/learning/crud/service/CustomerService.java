@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
 import java.util.Map;
 
 /**
@@ -39,8 +40,8 @@ public class CustomerService {
     }
 
     public Flux<CustomerDto> getCustomers() {
-        return mongoTemplate.findAll(Customer.class).map(this.customerMapper::toDto);
-        //.delayElements(Duration.ofMillis(100));
+        return mongoTemplate.findAll(Customer.class).map(this.customerMapper::toDto)
+            .delayElements(Duration.ofSeconds(1));
     }
 
     public Mono<CustomerDto> getCustomerById(String id) {
