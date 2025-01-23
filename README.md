@@ -41,9 +41,21 @@ This operator allows to keep elements where the result of this asynchronous test
 
 ## Use Sinks
 
+## Some notes / best practices:
+- A method calling Rest/SOAP API, must return a publisher
+- A method returning a publisher must not block nor throw (instead of throwing, return an error())
+- Avoid keeping publisher instances in variables (instead chain operators, to forward var from instruction to another)
+- Return you publisher (Flux and Mono) to Spring, it will be handled automatically by Spring
+- To use real-time notification, a push from server to frontend, use Flux/Mono with an endpoint producing "text/event-stream"
+- Avoid doing .subscribe() and .block(), except at startup, blocking MQ listeners and timers.
+- When dealing with an infinite Flux/Sink (Example of kafka pushing data without interruption), we should beware of cancellation...
+
 ## Illustrations
 
 ![Description de l'image](./docs/reactive-schema.png)
 
 
 ![Description de l'image](./docs/reactive-operator-sample.png)
+
+
+
