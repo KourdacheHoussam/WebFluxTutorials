@@ -39,6 +39,8 @@ It is particularly useful when the resulting value of the Mono is expensive to c
 This operator allows to keep elements where the result of this asynchronous test is true.</i>
 
 
+## Use Sinks
+
 ## Illustrations
 
 ![Description de l'image](./docs/reactive-schema.png)
