@@ -398,6 +398,20 @@ public class WebfluxConceptsLearning {
                 });
     }
 
+    /**
+     * Applies a filter to the Flux elements based on the provided conditions.
+     * Filters elements that contain the letter 'a' (case-insensitive) and further filters
+     * elements that also contain the letter 'l' (case-insensitive).
+     *
+     * @return a Flux containing elements that satisfy both filter conditions.
+     */
+    private Flux<String> testOfFilterWhen() {
+        return Flux.fromIterable(List.of("Java-lang", "Python-lang", "Html-lang", "PyTorch-fram"))
+                .filterWhen(value -> Mono.just(value.toLowerCase().contains("a")))
+                .filterWhen(s -> Mono.just(s.toLowerCase().contains("l")));
+
+    }
+
     private Flux<Integer> testOnErrorMap() {
         return Flux.range(0, 5)
                 .map(i -> 2/i)
@@ -412,101 +426,105 @@ public class WebfluxConceptsLearning {
     public static void main(String[] args) throws InterruptedException {
         WebfluxConceptsLearning webfluxConceptsLearning = new WebfluxConceptsLearning();
         // Let's test a subscriber
-        // reactiveTutorial.testMono(); //--> this is not going to do nothing because we are not subscribed yet
+        // webfluxConceptsLearning.testMono(); //--> this is not going to do nothing because we are not subscribed yet
         // The publisher send data, but to get that one, the publisher should know the subscriber, so let's create one
         System.out.println("-------> Test mono");
-        // reactiveTutorial.testMono().subscribe(System.out::print);
+        // webfluxConceptsLearning.testMono().subscribe(System.out::print);
         // Thread.sleep(700);
         // --------
         System.out.println("-------> Test flux");
-        webfluxConceptsLearning.testFlux().subscribe(System.out::println);
-        Thread.sleep(700);
+        //webfluxConceptsLearning.testFlux().subscribe(System.out::println);
+        //Thread.sleep(700);
         // --------
         System.out.println("-------> Test map");
-        // reactiveTutorial.testMap().subscribe(System.out::println);
+        // webfluxConceptsLearning.testMap().subscribe(System.out::println);
         // Thread.sleep(700);
         // --------
         System.out.println("-------> Test flatMap");
-        // reactiveTutorial.testFlatMap().subscribe(System.out::println);
+        // webfluxConceptsLearning.testFlatMap().subscribe(System.out::println);
         // Thread.sleep(700);
         // --------
         System.out.println("-------> Test skip");
-        // reactiveTutorial.testSkip().subscribe(System.out::println);
+        // webfluxConceptsLearning.testSkip().subscribe(System.out::println);
         // Thread.sleep(6_000); //--> this is necessary because testSkip is an async operation, so we have to keep app
         // running by using a sleep, in order to have enough time to display all pushed elements
         // --------
         System.out.println("-------> Test skip");
-        // reactiveTutorial.testComplexSkip().subscribe(System.out::println);
+        // webfluxConceptsLearning.testComplexSkip().subscribe(System.out::println);
         // Thread.sleep(700);
         // --------
         System.out.println("-------> Test concat");
-        // reactiveTutorial.testConcat().subscribe(System.out::println);
+        // webfluxConceptsLearning.testConcat().subscribe(System.out::println);
         // Thread.sleep(700);
         // --------
         System.out.println("-------> Test merge");
-        // reactiveTutorial.testMerge().subscribe(System.out::println);
+        webfluxConceptsLearning.testMerge().subscribe(System.out::println);
         // Thread.sleep(11_000);
         // --------
         System.out.println("-------> Test zip -> tuple2 as result");
-        // reactiveTutorial.testZip().subscribe(System.out::println);
+        // webfluxConceptsLearning.testZip().subscribe(System.out::println);
         // Thread.sleep(12_000);
         // --------
         System.out.println("-------> Test zip -> test Zip Different Range Size");
-        // reactiveTutorial.testZipDifferentRangeSize().subscribe(System.out::println);
+        // webfluxConceptsLearning.testZipDifferentRangeSize().subscribe(System.out::println);
         // Thread.sleep(6_000);
         // --------
         System.out.println("-------> Test zip -> tuple3 as result");
-        // reactiveTutorial.testZip2().subscribe(System.out::println);
+        // webfluxConceptsLearning.testZip2().subscribe(System.out::println);
         // Thread.sleep(12_000);
         // --------
         System.out.println("-------> Test zip ->  zip mono with flux");
-        // reactiveTutorial.testZipMonoAndFlux().subscribe(System.out::println);
+        // webfluxConceptsLearning.testZipMonoAndFlux().subscribe(System.out::println);
         // Thread.sleep(5_000);
         // --------
         System.out.println("-------> Test collectList method");
-        // reactiveTutorial.testCollectList().subscribe(System.out::println);
+        // webfluxConceptsLearning.testCollectList().subscribe(System.out::println);
         // to convert from async call to sync, we can use block() which is not recommended at all
-        // reactiveTutorial.testCollectList().block();
+        // webfluxConceptsLearning.testCollectList().block();
         // Thread.sleep(5_000);
 
         // --------
         System.out.println("-------> Test flux's buffer method");
-        //reactiveTutorial.testBuffer().subscribe(System.out::println);
+        //webfluxConceptsLearning.testBuffer().subscribe(System.out::println);
         //Thread.sleep(15_000);
         // --------
-        System.out.println("-------> Test flux's collectMap method");
-        //reactiveTutorial.testCollectMap().subscribe(System.out::println);
+        System.out.println("-------> Test flux's collectMap method/operator");
+        //webfluxConceptsLearning.testCollectMap().subscribe(System.out::println);
         // --------
-        System.out.println("-------> Test flux's doOnEach method");
-        //reactiveTutorial.testDoOnEach().subscribe(System.out::println);
+        System.out.println("-------> Test flux's doOnEach method/operator");
+        //webfluxConceptsLearning.testDoOnEach().subscribe(System.out::println);
         // --------
-        System.out.println("-------> Test flux's testDoAfterTerminated method");
-        //reactiveTutorial.testDoAfterTerminated().subscribe(System.out::println);
+        System.out.println("-------> Test flux's testDoAfterTerminated method/operator");
+        //webfluxConceptsLearning.testDoAfterTerminated().subscribe(System.out::println);
         // --------
-        System.out.println("-------> Test flux's DoOnSubscribe method");
-        //reactiveTutorial.testDoOnSubscribe().subscribe(System.out::println);
-        //reactiveTutorial.testDoOnSubscribe().subscribe(System.out::println);
+        System.out.println("-------> Test flux's DoOnSubscribe method/operator");
+        //webfluxConceptsLearning.testDoOnSubscribe().subscribe(System.out::println);
+        //webfluxConceptsLearning.testDoOnSubscribe().subscribe(System.out::println);
         // --------
-        System.out.println("-------> Test flux's doOnCancel method");
-        Disposable disposable = webfluxConceptsLearning.testDoOnCancel().subscribe(System.out::println);
+        System.out.println("-------> Test flux's doOnCancel method/operator");
+        //Disposable disposable = webfluxConceptsLearning.testDoOnCancel().subscribe(System.out::println);
         //Thread.sleep(1_000);
         //disposable.dispose();
         //Thread.sleep(8_000);
         // --------
-        System.out.println("-------> Test flux's onErrorContinue methods");
+        System.out.println("-------> Test flux's onErrorContinue method/operator");
         //webfluxConceptsLearning.testOnError().subscribe(System.out::println);
         //Thread.sleep(8_000);
         // --------
-        System.out.println("-------> Test flux's onErrorReturn methods");
+        System.out.println("-------> Test flux's onErrorReturn method/operator");
         //webfluxConceptsLearning.testOnErrorReturn().subscribe(System.out::println);
         //Thread.sleep(15_000);
         // --------
-        System.out.println("-------> Test flux's onResume methods");
+        System.out.println("-------> Test flux's onResume method/operator");
         //webfluxConceptsLearning.testOnResume().subscribe(System.out::println);
         //Thread.sleep(15_000);
         // --------
-        System.out.println("-------> Test flux's onErrorMap methods");
-        webfluxConceptsLearning.testOnErrorMap().subscribe(System.out::println);
+        System.out.println("-------> Test flux's onErrorMap method/operator");
+        //webfluxConceptsLearning.testOnErrorMap().subscribe(System.out::println);
+        //Thread.sleep(15_000);
+        // --------
+        System.out.println("-------> Test flux's filterWhen method/operator");
+        webfluxConceptsLearning.testOfFilterWhen().subscribe(System.out::println);
         Thread.sleep(15_000);
 
     }
